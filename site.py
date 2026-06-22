@@ -61,6 +61,20 @@ if st.session_state.pagina == "Fórmulas":
 
 	st.divider()
 
+# Caixas de diálogo
+
+	@st.dialog("Calcular n-º de partículas")
+	def calcular_n_particulas():
+		st.subheader("Calcular n-º de partículas")
+		st.latex(r"n = \frac{N}{N_A}")
+		st.divider()
+
+		N = st.number_input("Nº de partículas (N)", value=6.02e23, format="%.2e", step=1e20)
+		if st.button("Calcular", type="primary", use_container_width=True):
+			n = N / constantes["Constante de Avogadro"]
+			st.success(f"**Resultado:** n = **{n:.4e}** mol")
+			st.caption("Quantidade de matéria")
+
 # Fórmulas para Quantidades, massa e volume
 	if categoria == "Quantidades, massa e volume":
 		st.subheader("Fórmulas para Quantidades, massa e volume", anchor=False)
@@ -68,7 +82,7 @@ if st.session_state.pagina == "Fórmulas":
 
 		with col1:
 			if st.button("Calcular n-º de partículas", use_container_width=True):
-				st.session_state.formula_ativa = "qtd_particulas"
+				calcular_n_particulas()
 			st.latex(r"n = \frac{N}{N_A}")
 
 		with col2:
